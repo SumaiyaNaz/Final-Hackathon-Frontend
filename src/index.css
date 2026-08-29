@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .glass {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-gray-200/50 dark:border-gray-800/50;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
+  }
+  
+  .btn-gradient {
+    @apply bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium shadow-lg hover:shadow-indigo-500/25 transition-all duration-300 rounded-xl px-4 py-2.5 active:scale-95 disabled:opacity-50;
+  }
+  
+  .avatar-circle {
+    @apply flex items-center justify-center rounded-full font-bold text-white bg-gradient-to-br from-indigo-500 to-purple-600 shadow-md;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 dark:hover:shadow-purple-500/10 border border-gray-100 dark:border-gray-800;
+  }
+  
+  .input-focus {
+    @apply w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200;
+  }
+  
+  .admin-badge {
+    @apply px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300 border border-purple-200 dark:border-purple-800;
+  }
+  
+  .user-badge {
+    @apply px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800;
+  }
+  
+  .spinner {
+    @apply border-4 border-indigo-200 dark:border-gray-700 border-t-indigo-600 dark:border-t-purple-500 rounded-full animate-spin;
+  }
+  
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[calc(100vh-5rem)];
+  }
+  
+  .table-row {
+    @apply transition-colors hover:bg-gray-50/80 dark:hover:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800;
+  }
+}
