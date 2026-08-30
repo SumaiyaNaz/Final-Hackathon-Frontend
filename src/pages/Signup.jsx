@@ -18,14 +18,13 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validation
+
     if (fullName.length < 2) {
       return Swal.fire({
         icon: 'warning',
         title: 'Name Too Short',
         text: 'Name must be at least 2 characters long.',
-        confirmButtonColor: '#6366f1',
+        confirmButtonColor: '#8C5A32',
       });
     }
 
@@ -34,7 +33,7 @@ export default function Signup() {
         icon: 'warning',
         title: 'Weak Password',
         text: 'Password must be at least 8 characters long.',
-        confirmButtonColor: '#6366f1',
+        confirmButtonColor: '#8C5A32',
       });
     }
 
@@ -43,14 +42,14 @@ export default function Signup() {
         icon: 'error',
         title: 'Passwords Mismatch',
         text: 'Password and confirm password do not match.',
-        confirmButtonColor: '#6366f1',
+        confirmButtonColor: '#8C5A32',
       });
     }
 
     setLoading(true);
     const result = await signup(fullName, email, password);
     setLoading(false);
-    
+
     if (result) {
       navigate('/home');
     }
@@ -65,14 +64,16 @@ export default function Signup() {
         className="w-full max-w-md p-8 rounded-2xl glass shadow-xl"
       >
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold gradient-text">Create Account</h2>
+          <h2 className="text-3xl font-bold">
+            <span className="text-[#3D2817] dark:text-[#8C5A32]">Create</span>
+            <span className="text-[#8C5A32] dark:text-[#D4A574]"> Account</span>
+          </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-            Join us and get started
+            Join SupportFlow and get started
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Full Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Full Name
@@ -88,7 +89,6 @@ export default function Signup() {
             />
           </div>
 
-          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Email Address
@@ -104,7 +104,6 @@ export default function Signup() {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Password
@@ -130,7 +129,6 @@ export default function Signup() {
             </div>
           </div>
 
-          {/* Confirm Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Confirm Password
@@ -156,11 +154,10 @@ export default function Signup() {
             </div>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-gradient flex justify-center items-center"
+            className="w-full btn-primary flex justify-center items-center"
           >
             {loading ? (
               <div className="spinner h-5 w-5 border-white border-t-transparent"></div>
@@ -172,7 +169,7 @@ export default function Signup() {
 
         <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           Already have an account?{' '}
-          <Link to="/login" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
+          <Link to="/login" className="text-[#8C5A32] dark:text-[#D4A574] font-semibold hover:underline">
             Sign In
           </Link>
         </p>

@@ -31,14 +31,16 @@ export default function Login() {
         className="w-full max-w-md p-8 rounded-2xl glass shadow-xl"
       >
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold gradient-text">Welcome Back</h2>
+          <h2 className="text-3xl font-bold">
+            <span className="text-[#3D2817] dark:text-[#8C5A32]">Welcome</span>
+            <span className="text-[#8C5A32] dark:text-[#D4A574]"> Back</span>
+          </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-            Sign in to your account
+            Sign in to your SupportFlow account
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Email Address
@@ -54,7 +56,6 @@ export default function Login() {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Password
@@ -80,11 +81,10 @@ export default function Login() {
             </div>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-gradient flex justify-center items-center"
+            className="w-full btn-primary flex justify-center items-center"
           >
             {loading ? (
               <div className="spinner h-5 w-5 border-white border-t-transparent"></div>
@@ -96,7 +96,7 @@ export default function Login() {
 
         <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           Don't have an account?{' '}
-          <Link to="/signup" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
+          <Link to="/signup" className="text-[#8C5A32] dark:text-[#D4A574] font-semibold hover:underline">
             Sign Up
           </Link>
         </p>

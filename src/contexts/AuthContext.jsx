@@ -9,16 +9,20 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
   const [loading, setLoading] = useState(true);
 
-  // Load user on app start if token exists
   useEffect(() => {
     const loadUser = async () => {
       if (token) {
         try {
           const res = await API.get('/auth/profile');
+          console.log('Profile response:', res.data);
           setUser(res.data.data);
+          console.log('User role after load:', res.data.data.role);
         } catch (error) {
           console.error('Failed to load user:', error);
-          logout();
+          if (error.response?.status === 401) {
+            localStorage.removeItem('token');
+            setToken(null);
+          }
         }
       }
       setLoading(false);
@@ -26,26 +30,26 @@ export const AuthProvider = ({ children }) => {
     loadUser();
   }, [token]);
 
-  // Login function
   const login = async (email, password) => {
     try {
       const res = await API.post('/auth/login', { email, password });
       const { user: userData, token: authToken } = res.data.data;
-      
+
+      console.log('Login response - user data:', userData);
+      console.log('Login response - user role:', userData.role);
+
       localStorage.setItem('token', authToken);
       setToken(authToken);
       setUser(userData);
-      
+
       Swal.fire({
         icon: 'success',
         title: 'Welcome Back!',
         text: `Hello ${userData.name}`,
         timer: 2000,
         showConfirmButton: false,
-        background: 'white',
-        backdrop: 'rgba(0,0,0,0.4)',
       });
-      
+
       return true;
     } catch (error) {
       console.error('Login error:', error);
@@ -53,13 +57,12 @@ export const AuthProvider = ({ children }) => {
         icon: 'error',
         title: 'Login Failed',
         text: error.response?.data?.message || 'Invalid credentials. Please try again.',
-        confirmButtonColor: '#6366f1',
+        confirmButtonColor: '#8C5A32',
       });
       return false;
     }
   };
 
-  // Signup function
   const signup = async (fullName, email, password) => {
     try {
       const res = await API.post('/auth/signup', {
@@ -68,23 +71,21 @@ export const AuthProvider = ({ children }) => {
         password,
         confirmPassword: password,
       });
-      
+
       const { user: userData, token: authToken } = res.data.data;
-      
+
       localStorage.setItem('token', authToken);
       setToken(authToken);
       setUser(userData);
-      
+
       Swal.fire({
         icon: 'success',
         title: 'Account Created!',
-        text: `Welcome ${userData.name}! Your account has been created successfully.`,
+        text: `Welcome ${userData.name}!`,
         timer: 2000,
         showConfirmButton: false,
-        background: 'white',
-        backdrop: 'rgba(0,0,0,0.4)',
       });
-      
+
       return true;
     } catch (error) {
       console.error('Signup error:', error);
@@ -92,13 +93,12 @@ export const AuthProvider = ({ children }) => {
         icon: 'error',
         title: 'Signup Failed',
         text: error.response?.data?.message || 'Error creating account. Please try again.',
-        confirmButtonColor: '#6366f1',
+        confirmButtonColor: '#8C5A32',
       });
       return false;
     }
   };
 
-  // Logout function
   const logout = async () => {
     try {
       if (token) {
@@ -110,35 +110,30 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem('token');
       setToken(null);
       setUser(null);
-      
+
       Swal.fire({
         icon: 'info',
         title: 'Logged Out',
         text: 'You have been logged out successfully.',
         timer: 1500,
         showConfirmButton: false,
-        background: 'white',
-        backdrop: 'rgba(0,0,0,0.4)',
       });
     }
   };
 
-  // Update profile function
   const updateProfile = async (name) => {
     try {
       const res = await API.put('/auth/profile', { name });
       setUser(res.data.data);
-      
+
       Swal.fire({
         icon: 'success',
         title: 'Profile Updated!',
         text: 'Your profile has been updated successfully.',
         timer: 1500,
         showConfirmButton: false,
-        background: 'white',
-        backdrop: 'rgba(0,0,0,0.4)',
       });
-      
+
       return true;
     } catch (error) {
       console.error('Update profile error:', error);
@@ -146,19 +141,12 @@ export const AuthProvider = ({ children }) => {
         icon: 'error',
         title: 'Update Failed',
         text: error.response?.data?.message || 'Failed to update profile.',
-        confirmButtonColor: '#6366f1',
+        confirmButtonColor: '#8C5A32',
       });
       return false;
     }
   };
 
-  // Get user's first letter for avatar
-  const getFirstLetter = () => {
-    if (!user || !user.name) return 'U';
-    return user.name.charAt(0).toUpperCase();
-  };
-
-  // Context value
   const value = {
     user,
     token,
@@ -167,10 +155,12 @@ export const AuthProvider = ({ children }) => {
     signup,
     logout,
     updateProfile,
-    getFirstLetter,
     isAuthenticated: !!token && !!user,
     isAdmin: user?.role === 'admin',
   };
+
+  console.log('AuthContext - isAdmin:', value.isAdmin);
+  console.log('AuthContext - user role:', user?.role);
 
   return (
     <AuthContext.Provider value={value}>
@@ -179,7 +169,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use auth context
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

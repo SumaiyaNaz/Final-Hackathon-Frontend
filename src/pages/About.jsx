@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
-import { FiGithub, FiTwitter, FiLinkedin, FiLayers, FiLock, FiCpu } from 'react-icons/fi';
+import { FiGithub, FiTwitter, FiLinkedin, FiLayers, FiLock, FiCpu, FiMessageCircle, FiShield } from 'react-icons/fi';
 
 export default function About() {
   const features = [
-    { title: 'Vite & React 18', desc: 'Blazing fast frontend performance with modern asset bundling.', icon: FiCpu },
-    { title: 'Tailwind CSS v4', desc: 'Optimized styling framework with global dark theme adaptation.', icon: FiLayers },
-    { title: 'Secure Authentication', desc: 'JWT token handling with context API and backend security middleware.', icon: FiLock },
+    { title: 'Smart Ticket Management', desc: 'Create, track, and manage support tickets with ease.', icon: FiMessageCircle },
+    { title: 'AI-Powered Suggestions', desc: 'Get smart suggestions based on your ticket description.', icon: FiCpu },
+    { title: 'Secure Authentication', desc: 'JWT token handling with context API and security middleware.', icon: FiLock },
+    { title: 'Admin Dashboard', desc: 'Complete control over users and tickets with admin panel.', icon: FiShield },
   ];
 
   return (
@@ -17,19 +18,22 @@ export default function About() {
         className="space-y-8"
       >
         <div className="text-center max-w-2xl mx-auto">
-          <h1 className="text-4xl font-extrabold gradient-text mb-4">About MyApp</h1>
+          <h1 className="text-4xl font-extrabold mb-4">
+            <span className="text-[#3D2817] dark:text-[#8C5A32]">About</span>
+            <span className="text-[#8C5A32] dark:text-[#D4A574]"> SupportFlow</span>
+          </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            A full-stack React frontend implementation paired with a robust backend environment. 
-            Engineered for security, speed, and responsive design.
+            A full-stack customer support system engineered for security, speed, and responsive design.
+            Manage tickets, track status, and resolve issues efficiently.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
           {features.map((f, i) => {
             const Icon = f.icon;
             return (
               <div key={i} className="p-6 rounded-2xl glass card-hover text-center">
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center mx-auto mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#8C5A32]/10 text-[#8C5A32] flex items-center justify-center mx-auto mb-4">
                   <Icon className="w-6 h-6" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
@@ -42,13 +46,13 @@ export default function About() {
         <div className="text-center pt-4">
           <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">Connect With Us</h4>
           <div className="flex justify-center space-x-6 text-xl">
-            <a href="#" className="p-3 rounded-full glass hover:text-indigo-500 transition-colors">
+            <a href="#" className="p-3 rounded-full glass hover:text-[#8C5A32] transition-colors">
               <FiGithub />
             </a>
-            <a href="#" className="p-3 rounded-full glass hover:text-indigo-500 transition-colors">
+            <a href="#" className="p-3 rounded-full glass hover:text-[#8C5A32] transition-colors">
               <FiTwitter />
             </a>
-            <a href="#" className="p-3 rounded-full glass hover:text-indigo-500 transition-colors">
+            <a href="#" className="p-3 rounded-full glass hover:text-[#8C5A32] transition-colors">
               <FiLinkedin />
             </a>
           </div>

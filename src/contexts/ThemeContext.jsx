@@ -11,12 +11,9 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const root = document.documentElement;
-    // Remove both classes first
     root.classList.remove('light', 'dark');
-    // Add the current theme
     root.classList.add(theme);
     localStorage.setItem('theme', theme);
-    console.log('Theme set to:', theme);
   }, [theme]);
 
   const toggleTheme = () => {
