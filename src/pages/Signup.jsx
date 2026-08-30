@@ -19,11 +19,12 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Validation
     if (fullName.length < 2) {
       return Swal.fire({
         icon: 'warning',
         title: 'Name Too Short',
-        text: 'Name must be at least 2 characters',
+        text: 'Name must be at least 2 characters long.',
         confirmButtonColor: '#6366f1',
       });
     }
@@ -32,7 +33,7 @@ export default function Signup() {
       return Swal.fire({
         icon: 'warning',
         title: 'Weak Password',
-        text: 'Password must be at least 8 characters long',
+        text: 'Password must be at least 8 characters long.',
         confirmButtonColor: '#6366f1',
       });
     }
@@ -40,8 +41,8 @@ export default function Signup() {
     if (password !== confirmPassword) {
       return Swal.fire({
         icon: 'error',
-        title: 'Mismatch',
-        text: 'Passwords do not match',
+        title: 'Passwords Mismatch',
+        text: 'Password and confirm password do not match.',
         confirmButtonColor: '#6366f1',
       });
     }
@@ -49,7 +50,10 @@ export default function Signup() {
     setLoading(true);
     const result = await signup(fullName, email, password);
     setLoading(false);
-    if (result) navigate('/home');
+    
+    if (result) {
+      navigate('/home');
+    }
   };
 
   return (
@@ -62,10 +66,13 @@ export default function Signup() {
       >
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold gradient-text">Create Account</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Join us today</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            Join us and get started
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Full Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Full Name
@@ -77,9 +84,11 @@ export default function Signup() {
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Enter your full name"
               className="input-focus"
+              disabled={loading}
             />
           </div>
 
+          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Email Address
@@ -91,9 +100,11 @@ export default function Signup() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
               className="input-focus"
+              disabled={loading}
             />
           </div>
 
+          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Password
@@ -106,17 +117,20 @@ export default function Signup() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Create a password (min 8 chars)"
                 className="input-focus pr-12"
+                disabled={loading}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition"
+                disabled={loading}
               >
                 {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
               </button>
             </div>
           </div>
 
+          {/* Confirm Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Confirm Password
@@ -129,19 +143,30 @@ export default function Signup() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
                 className="input-focus pr-12"
+                disabled={loading}
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition"
+                disabled={loading}
               >
                 {showConfirmPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
               </button>
             </div>
           </div>
 
-          <button type="submit" disabled={loading} className="w-full btn-gradient flex justify-center items-center">
-            {loading ? <div className="spinner h-5 w-5 border-white border-t-transparent"></div> : 'Create Account'}
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full btn-gradient flex justify-center items-center"
+          >
+            {loading ? (
+              <div className="spinner h-5 w-5 border-white border-t-transparent"></div>
+            ) : (
+              'Create Account'
+            )}
           </button>
         </form>
 

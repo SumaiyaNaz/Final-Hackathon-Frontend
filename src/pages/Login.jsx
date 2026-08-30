@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext';
-import Swal from 'sweetalert2';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -18,7 +17,9 @@ export default function Login() {
     setLoading(true);
     const result = await login(email, password);
     setLoading(false);
-    if (result) navigate('/home');
+    if (result) {
+      navigate('/home');
+    }
   };
 
   return (
@@ -31,10 +32,13 @@ export default function Login() {
       >
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold gradient-text">Welcome Back</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Sign in to your account</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            Sign in to your account
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Email Address
@@ -46,9 +50,11 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
               className="input-focus"
+              disabled={loading}
             />
           </div>
 
+          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Password
@@ -61,19 +67,30 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 className="input-focus pr-12"
+                disabled={loading}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition"
+                disabled={loading}
               >
                 {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
               </button>
             </div>
           </div>
 
-          <button type="submit" disabled={loading} className="w-full btn-gradient flex justify-center items-center">
-            {loading ? <div className="spinner h-5 w-5 border-white border-t-transparent"></div> : 'Sign In'}
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full btn-gradient flex justify-center items-center"
+          >
+            {loading ? (
+              <div className="spinner h-5 w-5 border-white border-t-transparent"></div>
+            ) : (
+              'Sign In'
+            )}
           </button>
         </form>
 
