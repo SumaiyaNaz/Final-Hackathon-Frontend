@@ -50,6 +50,15 @@
 
 import axios from 'axios';
 
+// const getBaseURL = () => {
+//   if (import.meta.env.PROD) {
+//     return 'https://final-hackathon-backend-red.vercel.app/api';
+//   }
+//   return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// };
+
+
+
 const getBaseURL = () => {
   if (import.meta.env.PROD) {
     return 'https://final-hackathon-backend-red.vercel.app/api';
