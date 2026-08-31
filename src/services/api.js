@@ -126,7 +126,7 @@ import axios from 'axios';
 const getBaseURL = () => {
   // Production (Vercel)
   if (import.meta.env.PROD) {
-    return 'https://final-hackathon-backend-red.vercel.app/api';
+    return 'https://final-hackathon-backend-chi.vercel.app/api';
   }
   // Local development
   return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
